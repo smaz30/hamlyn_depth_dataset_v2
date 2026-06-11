@@ -26,14 +26,13 @@ def main(
         folder_depth_psudo = folder / 'depth_psudo'
         folder_depth_psudo.mkdir(exist_ok=True, parents=True)
         K = load_intrinsics(intrinsics_p)
-        # K = K*2 if int(id) in [1] else K
         R, T = load_extrinsics(extrinsics_p)
 
         img_left_path = folder / 'image01'
         img_right_path = folder / 'image02'
 
+        print(f"Processing Sequence {folder.name}")
         for i, (im_l_p, im_r_p) in enumerate(zip(natsorted(img_left_path.glob('*.jpg')), natsorted(img_right_path.glob('*.jpg')))):
-
             im_left = cv2.imread(str(im_l_p))
             im_right = cv2.imread(str(im_r_p))
 
@@ -46,14 +45,7 @@ def main(
             zer_mask = (im_left[:,:,0]>0)*1.0
             mask = mask*zer_mask
 
-
-            depth_normalized = cv2.normalize(
-                depth,
-                None,
-                alpha=0,
-                beta=255,
-                norm_type=cv2.NORM_MINMAX
-            )
+            # NOTE: normalization is done to have the same color mapping with a maximum depth of 250mm to compare visually with the original depth map.
             depth_normalized =255 *(depth * mask) / 250 
 
             depth_normalized = depth_normalized.astype(np.uint8)
@@ -64,15 +56,16 @@ def main(
             )
             mask_to_show = cv2.applyColorMap(cv2.normalize(mask, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8),cv2.COLORMAP_INFERNO)
 
+            # At least half of the depth should be available
             if mask.sum()>(H*W*0.5):
                 depth_file_name = im_l_p.stem + '.npy'
                 mask_file_name = im_l_p.stem + '.npy'
-                np.save(str(folder_depth_psudo / depth_file_name), depth)
-                np.save(str(folder_mask / mask_file_name), mask)
+                np.save(str(folder_depth_psudo / depth_file_name), depth.astype(np.float32))
+                np.save(str(folder_mask / mask_file_name), mask.astype(np.utint8))
             
             if vis:
                 d1 = np.array(Image.open(fr"{im_l_p.parent.parent / 'depth01' }\{im_l_p.stem}.png"))
-                d1_n = cv2.applyColorMap((d1 /(250) * 255).astype(np.uint8),cv2.COLORMAP_INFERNO)
+                d1_n = cv2.applyColorMap((d1 /250 * 255).astype(np.uint8),cv2.COLORMAP_INFERNO)
                 cv2.imshow('left', im_left)
                 cv2.imshow('right', im_right)
                 if int(id) >13:

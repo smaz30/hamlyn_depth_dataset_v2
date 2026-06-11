@@ -33,7 +33,7 @@ table>
 The disparity map is estimated using the RAFT optical flow model. Since the images are rectified, only the horizontal component of the optical flow is used to compute disparity and derive depth.
 
 NOTE: 
-For the `rctified01` folder, the calibration file looks to
+For the `rectified01` folder, the calibration file looks to
 
 ## Dataset
 
@@ -42,11 +42,11 @@ Download the rectified Hamlyn dataset [Here](https://github.com/UZ-SLAMLab/Endo-
 
 ## Calibration Files
 
-Important Note for `rctified01`:
+Important Note for `rectified01`:
 
-The calibration parameters provided for the `rctified01` sequence appear to correspond to half of the image resolution, resulting in incorrect depth scaling when used directly with the rectified images.
+The calibration parameters provided for the `rectified01` sequence appear to correspond to half of the image resolution, resulting in incorrect depth scaling when used directly with the rectified images.
 
-Since `rctified01` and rectifie`rctified06` were captured using the same stereo camera setup, this repository uses the calibration parameters from `rctified06` when processing `rctified01`.
+Since `rectified01` and rectifie`rectified06` were captured using the same stereo camera setup, this repository uses the calibration parameters from `rectified06` when processing `rectified01`.
 
 ## Installation
 
@@ -74,7 +74,9 @@ Run pseudo depth generation with:
 
 ```bash
 uv run generate_psudo_gt.py \ 
-    --data-folder path/to/dataset \ --calibration-folder path/to/calibration \ --visualization
+    --data-folder path/to/dataset \ 
+    --calibration-folder path/to/calibration \ 
+    --visualization
 ```
 
 

@@ -7,9 +7,6 @@ The generated pseudo depth can be used as an alternative supervisory signal.
 
 This project is based on the rectified Hamlyn dataset available in the [Endo-Depth-and-Motion repository](https://github.com/UZ-SLAMLab/Endo-Depth-and-Motion):
 
-This repo is used to generate Psudo Depth from an Optical Flow model or stereo depth model for the [Rectified Hamlyn Dataset](https://github.com/UZ-SLAMLab/Endo-Depth-and-Motion). 
-A Visual difference of the presented dataset can be seen here:
-
 ## Ecample Results
 
 A visual comparison between the input image, the generated pseudo depth, and the ground-truth depth is shown below:

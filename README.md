@@ -41,7 +41,7 @@ Important Note for `rectified01`:
 
 The calibration parameters provided for the `rectified01` sequence appear to correspond to half of the image resolution, resulting in incorrect depth scaling when used directly with the rectified images.
 
-Since `rectified01` and rectifie`rectified06` were captured using the same stereo camera setup, this repository uses the calibration parameters from `rectified06` when processing `rectified01`.
+Since `rectified01` and `rectified06` were captured using the same stereo camera setup, this repository uses the calibration parameters from `rectified06` when processing `rectified01`.
 
 ## Installation
 

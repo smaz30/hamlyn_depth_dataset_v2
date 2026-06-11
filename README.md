@@ -1,2 +1,87 @@
 # hamlyn_depth_dataset_v2
-Psudo GT Depth obtained from an Optical Flow Model.
+Pseudo Ground-Truth (GT) depth generation using optical flow or stereo depth estimation models.
+
+This repository provides tools to generate pseudo depth maps for the rectified Hamlyn Dataset using Optical flow models (e.g., RAFT).
+
+The generated pseudo depth can be used as an alternative supervisory signal.
+
+This project is based on the rectified Hamlyn dataset available in the [Endo-Depth-and-Motion repository](https://github.com/UZ-SLAMLab/Endo-Depth-and-Motion):
+
+This repo is used to generate Psudo Depth from an Optical Flow model or stereo depth model for the [Rectified Hamlyn Dataset](https://github.com/UZ-SLAMLab/Endo-Depth-and-Motion). 
+A Visual difference of the presented dataset can be seen here:
+
+## Ecample Results
+
+A visual comparison between the input image, the generated pseudo depth, and the ground-truth depth is shown below:
+
+table>
+  <tr>
+    <td align="center">
+      <img src="assets/hamlyn_img.png" width="250"><br>
+      Img
+    </td>
+    <td align="center">
+      <img src="assets/hamlyn_psudp_depth.png" width="250"><br>
+      Raft Psudo Depth
+    </td>
+    <td align="center">
+      <img src="assets/hamlyn_depth.png" width="250"><br>
+      GT Depth
+    </td>
+  </tr>
+</table>
+The disparity map is estimated using the RAFT optical flow model. Since the images are rectified, only the horizontal component of the optical flow is used to compute disparity and derive depth.
+
+NOTE: 
+For the `rctified01` folder, the calibration file looks to
+
+## Dataset
+
+Download the rectified Hamlyn dataset [Here](https://github.com/UZ-SLAMLab/Endo-Depth-and-Motion)
+
+
+## Calibration Files
+
+Important Note for `rctified01`:
+
+The calibration parameters provided for the `rctified01` sequence appear to correspond to half of the image resolution, resulting in incorrect depth scaling when used directly with the rectified images.
+
+Since `rctified01` and rectifie`rctified06` were captured using the same stereo camera setup, this repository uses the calibration parameters from `rctified06` when processing `rctified01`.
+
+## Installation
+
+Clone the repository and install the project dependencies:
+
+```bash
+uv sync
+```
+
+Install PyTorch :
+
+CPU:
+```bash
+uv pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+```
+
+GPU(CUDA 11.8):
+```bash
+uv pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+```
+
+## Usage
+
+Run pseudo depth generation with:
+
+```bash
+uv run generate_psudo_gt.py \ 
+    --data-folder path/to/dataset \ --calibration-folder path/to/calibration \ --visualization
+```
+
+
+## Arguments
+
+| Argument               | Description                                                                       |
+| ---------------------- | --------------------------------------------------------------------------------- |
+| `--data-folder`        | Path to the rectified Hamlyn dataset sequence.                                    |
+| `--calibration-folder` | Path to the camera calibration files.                                             |
+| `--visualization`      | Enable visualization of the generated disparity and depth maps during processing. |

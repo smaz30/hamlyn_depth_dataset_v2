@@ -14,14 +14,14 @@ A Visual difference of the presented dataset can be seen here:
 
 A visual comparison between the input image, the generated pseudo depth, and the ground-truth depth is shown below:
 
-table>
+<table>
   <tr>
     <td align="center">
       <img src="assets/hamlyn_img.png" width="250"><br>
       Img
     </td>
     <td align="center">
-      <img src="assets/hamlyn_psudp_depth.png" width="250"><br>
+      <img src="assets/hamlyn_psudo_depth.png" width="250"><br>
       Raft Psudo Depth
     </td>
     <td align="center">

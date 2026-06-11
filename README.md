@@ -75,7 +75,7 @@ uv run generate_psudo_gt.py \
 ```
 During processing, the script automatically creates two output directories for each sequence:
 
-- `depth_pseudo` — stores the generated pseudo-depth maps as NumPy (`.npy`) files as `float32`.
+- `depth_pseudo` — stores the generated pseudo-depth maps as NumPy (`.npy`) files as `float32` in `mm`.
 - `depth_mask` — stores the corresponding validity masks as NumPy (`.npy`) files as `uint8`.
 
 These files can be loaded directly using `numpy.load()` for training, evaluation, or visualization.

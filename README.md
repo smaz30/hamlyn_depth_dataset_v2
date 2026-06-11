@@ -32,8 +32,6 @@ A visual comparison between the input image, the generated pseudo depth, and the
 </table>
 The disparity map is estimated using the RAFT optical flow model. Since the images are rectified, only the horizontal component of the optical flow is used to compute disparity and derive depth.
 
-NOTE: 
-For the `rectified01` folder, the calibration file looks to
 
 ## Dataset
 
